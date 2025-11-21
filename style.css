@@ -619,8 +619,12 @@ body.joja-mode #disclaimer a {
         margin-bottom: -2px;
     }
 
+    .lista-vazia-texto {
+        font-size: 1.2rem;
+    }
+
     .tarefa-texto {
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
 
     #lista-container {
