@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/imgs/favicon.png" type="image/x-icon">
+    <title>To-Dew List</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <form id="tarefa-form">
+            <input type="text" id="tarefa-input" placeholder="Adicionar nova tarefa" size="40" maxlength="120">
+            <button type="submit" id="btn-adicionar">Adicionar tarefa</button>
+        </form>
+
+        <button type="button" id="toggle-btn" aria-label="Alternar enter modo escuro e claro"><img src="./assets/imgs/Void_Essence.png" alt="Essência Nula" id="mode-img" aria-hidden="true"></button>
+    </header>
+    <main>
+        <h2 id="tarefas-title"><img src="./assets/imgs/title.png" alt="Diário" id="title-img" /></h2>
+
+        <section id="lista-frame">
+            <div id="lista-container">
+                <p id="lista-vazia-texto" class="lista-vazia-texto">Nada foi postado hoje.</p>
+                <ul id="tarefa-lista"></ul>
+            </div>
+
+            <nav id="lista-controls" aria-label="Navegação da lista">
+                <button type="button" class="seta sobe" aria-hidden="true"><img src="./assets/imgs/seta.png" alt="seta para cima"></button>
+                <button type="button" class="seta desce" aria-hidden="true"><img src="./assets/imgs/seta.png" alt="seta para baixo"></button>
+            </nav>
+        </section>
+    </main>
+
+    <small id="disclaimer">
+        This is an <strong>unofficial, non-profit fan-made</strong> project. | All rights reserved to
+        <a href="https://x.com/concernedape" target="_blank" rel="noopener noreferrer">Stardew Valley&copy;ConcernedApe</a>
+    </small>
+
+    <footer>
+        <a href="https://github.com/reenaataa" target="_blank" rel="noopener noreferrer">
+            <span>reenaataa</span>
+            <img src="./assets/imgs/chicken.png" alt="galinho" id="footer-img">
+        </a>
+    </footer>
+</body>

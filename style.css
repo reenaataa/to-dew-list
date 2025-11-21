@@ -1,0 +1,649 @@
+@charset 'utf-8';
+
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    line-height: 1.25;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'SVFont';
+    src: url('./assets/fonts/StardewValley.ttf') format('truetype');
+    /* by u/Cowsplay - https://www.reddit.com/r/StardewValley/comments/4dtgp7/ */
+}
+
+@font-face {
+    font-family: 'SYD2';
+    src: url('./assets/fonts/SYDTWO/SYDTWO_2.ttf') format('truetype');
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+:root {
+    --base-bg: #ffd284;
+    --base-bg-hover: #ff9666;
+    --lighter-base-bg: #fff4c5;
+
+    --red: #de1f44;
+    --grey: #555555;
+    --light-grey: #b8bfca;
+    --green: #236111;
+
+    --base-text: #221122;
+    --normal-text: #56160c;
+
+    --primary-font: 'SVFont';
+    --primary-fallback-font: 'Jersey 10';
+    --secondary-font: 'SYD2';
+
+    --wooden-border:
+        -2px 0 1px #601f09, -4px 0 1px #bd4a2d, -6px 0 1px #e67d2c, -8px 0 1px #5f2a24,
+        /* left */
+        2px 0 1px #601f09, 4px 0 1px #bd4a2d, 6px 0 1px #e67d2c, 8px 0 1px #5f2a24,
+        /* right */
+        0 -2px 1px #601f09, 0 -4px 1px #bd4a2d, 0 -6px 1px #e67d2c, 0 -8px 1px #5f2a24,
+        /* top */
+        0 2px 1px #601f09, 0 4px 1px #bd4a2d, 0 6px 1px #e67d2c, 0 8px 1px #5f2a24;
+    /* bottom */
+    ;
+
+    --thin-wooden-border:
+        -2px 0 0 #601f09,
+        2px 0 0 #601f09,
+        0 -2px 0 #601f09,
+        0 2px 0 #601f09,
+        inset 0 2px 0 #fff,
+        inset 0 -2px 0 #eca65f;
+    ;
+
+    --thinner-wooden-border: -2px 0 0 #43111c, 2px 0 0 #43111c, 0 -2px 0 #43111c, 0 2px 0 #43111c;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    background-image: url('./assets/imgs/bg-day.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    font-family: var(--primary-font), var(--primary-fallback-font), monospace;
+    color: var(--base-text);
+    font-size: 16px;
+
+    -webkit-user-select: none;
+    user-select: none;
+
+    transition: background 0.5s ease, background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease, border 0.5s ease;
+
+}
+
+body header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1.875rem;
+}
+
+input,
+button {
+    appearance: none;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+form {
+    text-align: center;
+}
+
+#tarefa-input {
+    height: 28px;
+    padding: 3px 6px;
+    background-color: var(--lighter-base-bg);
+    box-shadow: var(--thin-wooden-border);
+    font-family: var(--secondary-font), monospace;
+    font-size: 1.25rem;
+    color: var(--base-text);
+}
+
+#tarefa-input::placeholder {
+    color: var(--grey);
+}
+
+#btn-adicionar {
+    background-color: var(--base-bg);
+    padding: 3px 6px;
+    box-shadow: var(--thin-wooden-border);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    margin-left: 5px;
+    font-family: var(--secondary-font), monospace;
+    font-size: 1.25rem;
+    color: var(--base-text);
+}
+
+#btn-adicionar:hover {
+    background-color: var(--base-bg-hover);
+    box-shadow:
+        -2px 0 0 #601f09,
+        2px 0 0 #601f09,
+        0 -2px 0 #601f09,
+        0 2px 0 #601f09,
+        inset 0 2px 0 #f9b6c1,
+        inset 0 -2px 0 #ec7648;
+}
+
+img {
+    -webkit-user-drag: none;
+}
+
+#toggle-btn img {
+    width: 36px;
+    height: auto;
+}
+
+/* TITULO */
+#tarefas-title {
+    text-align: center;
+    margin-bottom: -5px;
+}
+
+#title-img {
+    width: 120px;
+    height: auto;
+}
+
+
+/* CONTAINER DA LISTA */
+#lista-frame {
+    border: 5px solid #601f09;
+    border-radius: 1px;
+    position: relative;
+}
+
+#lista-frame::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: var(--wooden-border);
+}
+
+#lista-container {
+    background: var(--base-bg);
+    padding: 3px;
+    width: 600px;
+    height: 400px;
+    position: relative;
+    overflow: hidden scroll;
+    scrollbar-width: none;
+}
+
+#lista-container::-webkit-scrollbar {
+    display: none;
+}
+
+.lista-vazia-texto {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    font-size: 1.8rem;
+    font-family: var(--secondary-font), monospace;
+}
+
+/* SETAS */
+#lista-controls {
+    position: absolute;
+    top: 0;
+    right: -60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 400px;
+    padding: 1.25rem 0;
+}
+
+.sobe:hover {
+    transform: scale(1.1);
+}
+
+.desce {
+    transform: rotate(180deg);
+}
+
+.desce:hover {
+    transform: rotate(180deg) scale(1.1);
+}
+
+
+/* ITENS DA LISTA */
+#tarefa-lista {
+    position: relative;
+    list-style: none;
+}
+
+.tarefa-item {
+    background-color: var(--lighter-base-bg);
+    box-shadow: var(--thinner-wooden-border);
+    margin-bottom: 3px;
+    padding: 3px;
+}
+
+.item-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: .5rem .5rem .5rem 3.5rem;
+    gap: .9rem;
+    overflow-wrap: anywhere;
+    border: 2px solid #823303;
+    background-color: var(--base-bg);
+    position: relative;
+}
+
+.item-container::before {
+    content: '';
+    background: url('./assets/imgs/attention.png') no-repeat 50% 50%;
+    width: 10px;
+    height: 29px;
+    position: absolute;
+    left: 20px;
+    animation: float 2s ease-in-out infinite;
+}
+
+.tarefa-texto {
+    font-size: 1.5rem;
+    color: var(--normal-text);
+    text-shadow: -2px 1px #ec764882;
+}
+
+.btns-container {
+    display: inline-flex;
+    gap: 12px;
+}
+
+.concluir,
+.editar,
+.excluir {
+    width: 25px;
+    height: 25px;
+    background-color: var(--lighter-base-bg);
+    border-radius: 7px;
+    box-shadow:
+        0 0 1px 1px #853605,
+        -1px 0 1px 2px #fd9605,
+        0 0 1px 3px #ffc341,
+        0 -1px 1px 2px #fd9605,
+        0 0 0 4px #5b2b2a,
+        inset 0 1px 1px 1px #eca65f66;
+}
+
+.concluir:hover,
+.editar:hover,
+.excluir:hover {
+    transform: scale(1.1);
+}
+
+.concluir {
+    color: var(--green);
+    text-shadow: -1px 1px #22611172;
+    font-family: var(--primary-font), var(--primary-fallback-font), monospace;
+    font-size: 1.3rem;
+}
+
+svg {
+    width: 24px;
+    height: auto;
+}
+
+.editar svg {
+    fill: var(--grey);
+}
+
+.excluir svg {
+    fill: var(--red);
+}
+
+
+/* ITEM CONCLUIDO */
+.tarefa-item.completed {
+    box-shadow: -2px 0 0 #b39d76, 2px 0 0 #b39d76, 0 -2px 0 #b39d76, 0 2px 0 #b39d76;
+
+}
+
+.tarefa-item.completed .item-container {
+    background-color: var(--lighter-base-bg);
+    border-color: #5555552e;
+}
+
+.tarefa-item.completed .tarefa-texto {
+    color: var(--grey);
+    opacity: 0.4;
+}
+
+.tarefa-item.completed .item-container .btns-container .concluir,
+.tarefa-item.completed .item-container .btns-container .editar,
+.tarefa-item.completed .item-container::before {
+    opacity: 0.4;
+    animation: none;
+}
+
+
+/* DISCLAIMER */
+#disclaimer {
+    text-align: center;
+    font-family: var(--secondary-font);
+    color: #000;
+    font-size: 1rem;
+}
+
+#disclaimer a {
+    color: #000;
+    font-family: var(--primary-font), var(--primary-fallback-font);
+    font-weight: 100;
+    font-size: 1rem;
+}
+
+#disclaimer a:hover {
+    text-decoration: none;
+}
+
+
+/* FOOTER */
+footer {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+footer a {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    text-decoration: none;
+    color: var(--text-color);
+    overflow: hidden;
+}
+
+footer a img {
+    width: 40px;
+    height: 40px;
+}
+
+footer a span {
+    display: inline-block;
+    transform: translateX(10px);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    color: #00ff31;
+    font-size: 1.125rem;
+    font-family: var(--secondary-font), monospace;
+}
+
+footer a:hover span {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+
+
+/* MODO JOJA */
+body.joja-mode {
+    background-image: url('./assets/imgs/bg-night.png');
+}
+
+body.joja-mode #tarefa-input {
+    color: #38365f;
+    background-color: #c9ddff;
+    box-shadow:
+        -2px 0 0 #184887,
+        2px 0 0 #184887,
+        0 -2px 0 #184887,
+        0 2px 0 #184887,
+        inset 0 2px 0 #cbe9ff,
+        inset 0 -2px 0 #709bd8;
+    ;
+}
+
+body.joja-mode #btn-adicionar {
+    background-color: #5380bf;
+    box-shadow:
+        -2px 0 0 #184887,
+        2px 0 0 #184887,
+        0 -2px 0 #184887,
+        0 2px 0 #184887,
+        inset 0 2px 0 #77a2c1,
+        inset 0 -2px 0 #45628c;
+    ;
+    color: #00d6ff;
+    text-shadow: 0 0 1px #00d6ff;
+}
+
+body.joja-mode #btn-adicionar:hover {
+    background-color: #416cb9;
+    box-shadow:
+        -2px 0 0 #184887,
+        2px 0 0 #184887,
+        0 -2px 0 #184887,
+        0 2px 0 #184887,
+        inset 0 2px 0 #6cb3e6,
+        inset 0 -2px 0 #416cb9;
+}
+
+body.joja-mode #title-img {
+    margin-bottom: -14px;
+}
+
+body.joja-mode #lista-frame {
+    border: 5px solid #cbe9ff;
+}
+
+body.joja-mode #lista-frame::before {
+    box-shadow:
+        -2px 0 1px #113672, -4px 0 1px #517bbb, -6px 0 1px #cbe9ff, -8px 0 1px #24508f,
+        /* left */
+        2px 0 1px #113672, 4px 0 1px #517bbb, 6px 0 1px #cbe9ff, 8px 0 1px #24508f,
+        /* right */
+        0 -2px 1px #113672, 0 -4px 1px #517bbb, 0 -6px 1px #cbe9ff, 0 -8px 1px #24508f,
+        /* top */
+        0 2px 1px #113672, 4px 1px #517bbb, 0 6px 1px #cbe9ff, 0 8px 1px #24508f;
+    /* bottom */
+    ;
+}
+
+body.joja-mode #lista-container {
+    background: #406cb9;
+}
+
+body.joja-mode .lista-vazia-texto {
+    color: #cbe9ff;
+}
+
+body.joja-mode .tarefa-item {
+    background-color: #dee9fd;
+    box-shadow: -2px 0 0 #184887, 2px 0 0 #184887, 0 -2px 0 #184887, 0 2px 0 #184887;
+}
+
+body.joja-mode .item-container {
+    border: 2px solid #184887;
+    background-color: #709bd8;
+}
+
+body.joja-mode .tarefa-texto {
+    color: #ebf2f7;
+    text-shadow: -2px 1px #383668bf;
+}
+
+body.joja-mode .tarefa-item.completed .item-container {
+    background-color: #dee9fd;
+}
+
+body.joja-mode .tarefa-item.completed {
+    box-shadow: -2px 0 0 #778ba9, 2px 0 0 #778ba9, 0 -2px 0 #778ba9, 0 2px 0 #778ba9;
+}
+
+body.joja-mode .concluir,
+body.joja-mode .editar,
+body.joja-mode .excluir {
+    background-color: #c9ddff;
+    box-shadow:
+        0 0 1px 1px #10336f,
+        -1px 0 1px 2px #1492de,
+        0 0 1px 3px #c2fdff,
+        0 -1px 1px 2px #1f3757,
+        0 0 0 4px #00469c,
+        inset 0 1px 1px 1px #c1fcfe;
+}
+
+body.joja-mode .concluir {
+    color: #185fb6;
+    text-shadow: 1px 1px #00d6ff;
+    font-family: var(--secondary-font), monospace;
+}
+
+body.joja-mode footer a span {
+    color: #00d6ff;
+}
+
+body.joja-mode #disclaimer,
+body.joja-mode #disclaimer a {
+    color: #fff;
+}
+
+/* MEDIA QUERY */
+@media screen and (max-width: 768px) {
+
+    #tarefa-input {
+        width: 160px;
+    }
+
+    body.joja-mode #title-img {
+        margin-bottom: -14px;
+    }
+
+    #lista-container {
+        width: 500px;
+        height: 300px;
+    }
+
+    #lista-controls {
+        right: -55px;
+        height: 300px;
+    }
+
+    .item-container {
+        padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+        gap: 0.725rem;
+    }
+
+    .item-container::before {
+        left: 10px;
+        width: 8px;
+        height: 25px;
+    }
+
+    .tarefa-texto {
+        font-size: 1.2rem;
+    }
+
+    .concluir,
+    .editar,
+    .excluir {
+        width: 20px;
+        height: 20px;
+    }
+
+    svg {
+        width: 18px;
+    }
+
+    .concluir {
+        font-size: 1.125rem;
+        line-height: 00;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    body header {
+        flex-direction: column;
+        gap: .5rem;
+    }
+
+    #tarefa-input {
+        width: 300px;
+        margin-bottom: 10px;
+        font-size: 1rem;
+    }
+
+    #btn-adicionar {
+        font-size: 1rem;
+        width: 200px;
+    }
+
+    #title-img {
+        width: 100px;
+        margin-bottom: -2px;
+    }
+
+    .tarefa-texto {
+        font-size: 1rem;
+    }
+
+    #lista-container {
+        width: 90vw;
+        height: 300px;
+    }
+
+    #lista-controls {
+        display: none;
+    }
+
+    #disclaimer {
+        font-size: 0.875rem;
+        width: 300px;
+    }
+
+    footer {
+        bottom: 10px;
+        right: 10px;
+    }
+
+    footer a span {
+        display: none;
+    }
+
+}
